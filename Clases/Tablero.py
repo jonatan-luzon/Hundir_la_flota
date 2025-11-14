@@ -14,10 +14,12 @@ class Tablero:
         barco_colocado = False
         while contador < num_intentos and not barco_colocado:
             barco = []
-            pieza_original = (random.randint(0, num_max_filas), random.randint(0, num_max_columnas))
+            #pieza_original = (random.randint(0, num_max_filas), random.randint(0, num_max_columnas))
+            pieza_original = (5,3)
             barco.append(pieza_original)
 
-            orientacion = random.choice(["N","S","O","E"])
+            #orientacion = random.choice(["N","S","O","E"])
+            orientacion = "N"
             print("Orientación elegida:", orientacion)
             fila = pieza_original[0]
             columna = pieza_original[1]
@@ -26,6 +28,8 @@ class Tablero:
                 match orientacion:
                     case "N":
                         fila -= 1
+                        #compararLimiteTablero()
+                        #compararSolapamientoBarcos()
                     case "S":
                         fila += 1
                     case "O":
@@ -35,6 +39,10 @@ class Tablero:
                 pieza_nueva = (fila, columna)
                 barco.append(pieza_nueva)
             
+            
+            #compararLimiteTablero()
+            #compararSolapamientoBarcos()
+
             tablero_temp = self.insertar_barcos_en_tablero_plus(barco)
 
             if type(tablero_temp) == np.ndarray:
