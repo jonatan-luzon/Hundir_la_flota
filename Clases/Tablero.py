@@ -60,9 +60,22 @@ class Tablero:
         for pieza in barcos:
             fila = pieza[0]
             columna = pieza[1]
-            if fila >= 0 and fila < num_max_filas and columna >= 0 and columna < num_max_columnas:
-                tablero_temp[fila, columna] = simbolo_barco
-        
+            # evitar que la pieza se salga fuera del tablero
+            if fila < 0 or fila >= num_max_filas or columna < 0 or columna >= num_max_columnas:
+                return None
+            # evitar que solape con otro barco en la misma posicion
+            if tablero_temp[fila, columna] == simbolo_barco:
+                return None
+            # comprobar las 8 casillas de alrededor para evitar solapamientos
+            for despl_fila in [-1, 0, 1]:
+                for despl_columna in [-1, 0, 1]:
+                    nueva_fila = fila + despl_fila
+                    nueva_columna = columna + despl_columna
+                    # verificar que la casilla vecina existe
+                    if 0 <= nueva_fila < num_max_filas and 0 <= nueva_columna < num_max_columnas:
+                        if tablero_temp[nueva_fila, nueva_columna] == simbolo_barco:
+                            return None
+            tablero_temp[fila, columna] = simbolo_barco
         return tablero_temp
     
     def imprimirTablero(self):
