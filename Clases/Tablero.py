@@ -43,24 +43,20 @@ class Tablero:
 
                 coordenadas_barco.append(coord)
 
-                # Mover a la siguiente coordenada
                 if orientacion == "N": fila_actual -= 1
                 elif orientacion == "S": fila_actual += 1
                 elif orientacion == "E": col_actual += 1
                 elif orientacion == "O": col_actual -= 1
 
-            # 3. Finalizar: Si todas las piezas fueron válidas...
             if es_posible:
-                # 🚨 LLAMADA A LA FUNCIÓN DE INSERCIÓN DIRECTA
+                #  LLAMADA A LA FUNCIÓN DE INSERCIÓN DIRECTA
                 self.insertar_barcos_en_tablero(coordenadas_barco) 
                 return True # Éxito: el barco fue colocado
 
         # Si se agotan los intentos, devuelve False (lo cual es raro con 100 intentos)
         return False 
 
-    # 🚨 ESTA FUNCIÓN ES CLAVE: Reemplaza a 'insertar_barcos_en_tablero_plus'
     def insertar_barcos_en_tablero(self, coordenadas, simbolo="O"):
-        """Pinta el barco en el array numpy self.tablero permanentemente."""
         for f, c in coordenadas:
             self.tablero[f, c] = simbolo
             
