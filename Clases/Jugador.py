@@ -18,20 +18,15 @@ class Jugador:
                 print("Poniendo barco de eslora:", int(barco))
                 self.tablero_oculto.ponerBarco(int(barco))
 
-    def disparar(rival, disparo):
-        disparo = (random.randint(0, BASE_TABLERO), random.randint(0, ALTURA_TABLERO))
+    def disparar(self, rival, disparo = (random.randint(0, BASE_TABLERO), random.randint(0, ALTURA_TABLERO))):
         match rival.tablero[disparo]:
             case "O":
-                rival.tablero[disparo] = "X"
+                self.tablero[disparo] = "X"
                 rival.tablero_oculto[disparo] = "X"
                 print("Tocado")
             case "~":
-                rival.tablero[disparo] = "-"
+                self.tablero[disparo] = "~"
                 rival.tablero_oculto[disparo] = "~"
                 print("Agua")
             case "X", "-":
                 print("Ya has disparado aquí")
-
-    
-
-    #def comprobarDerrota():
