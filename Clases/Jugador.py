@@ -47,15 +47,24 @@ class Jugador:
         
         return False
     
-    def obtener_disparo_humano(self):
+def obtener_disparo_humano(self):
+        # Inicia un bucle infinito para seguir pidiendo coordenadas hasta que sean válidas.
         while True:
             try:
+                # Pide la Fila al usuario. Se resta 1 porque los humanos cuentan desde 1
                 fila = int(input(f"Fila ({1}-{ALTURA_TABLERO}): ")) - 1
+                
+                # Pide la Columna al usuario. También se resta 1 por la indexación base 0.
                 columna = int(input(f"Columna ({1}-{BASE_TABLERO}): ")) - 1
                 
+                # Verifica que las coordenadas (ya ajustadas a base 0) estén dentro de los límites del tablero.
                 if 0 <= fila < ALTURA_TABLERO and 0 <= columna < BASE_TABLERO:
+                    # Si son válidas, se sale del bucle y devuelve la tupla (fila, columna).
                     return (fila, columna)
                 else:
+                    # Mensaje de error si las coordenadas están fuera de los límites definidos.
                     print("Coordenadas fuera de rango. Inténtalo de nuevo.")
+            
+            # Captura un error si el usuario introduce texto o cualquier cosa que no sea un número entero.
             except ValueError:
                 print("Entrada inválida. Introduce solo números.")
