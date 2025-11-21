@@ -8,7 +8,7 @@ class Tablero:
         # Inicializa un array lleno de espacios en blanco
         self.tablero = np.full((BASE_TABLERO, ALTURA_TABLERO), " ")
 
-    def ponerBarco(self, eslora, NUM_INTENTOS):
+    def ponerBarco(self, eslora):
         """
         Algoritmo robusto para colocar un barco aleatorio (modifica self.tablero directamente).
         """

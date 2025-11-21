@@ -47,7 +47,7 @@ class Jugador:
         
         return False
     
-    def obtener_disparo_humano():
+    def obtener_disparo_humano(self):
         while True:
             try:
                 fila = int(input(f"Fila ({1}-{ALTURA_TABLERO}): ")) - 1
