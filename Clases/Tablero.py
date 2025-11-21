@@ -8,14 +8,14 @@ class Tablero:
         # Inicializa un array lleno de espacios en blanco
         self.tablero = np.full((BASE_TABLERO, ALTURA_TABLERO), " ")
 
-    def ponerBarco(self, eslora, num_intentos=100):
+    def ponerBarco(self, eslora, NUM_INTENTOS):
         """
         Algoritmo robusto para colocar un barco aleatorio (modifica self.tablero directamente).
         """
         max_filas = ALTURA_TABLERO - 1
         max_cols = BASE_TABLERO - 1
 
-        for _ in range(num_intentos):
+        for _ in range(NUM_INTENTOS):
             
             # 1. Elegir Origen y Orientación Aleatoria
             fila_origen = random.randint(0, max_filas)
@@ -84,52 +84,6 @@ class Tablero:
     def imprimirTablero(self):
         print(self.tablero)
 
-    # def ponerBarco(self, eslora = 4, num_intentos = 100):
-    #     num_max_filas = ALTURA_TABLERO - 1
-    #     num_max_columnas = BASE_TABLERO - 1
-    #     contador = 0
-    #     barco_colocado = False
-    #     while contador < num_intentos and not barco_colocado:
-    #         barco = []
-    #         pieza_original = (random.randint(0, num_max_filas), random.randint(0, num_max_columnas))
-    #         comprovacion = self.compararSolapamientoBarcos(pieza_original)
-    #         barco.append(pieza_original)
-
-    #         orientacion = random.choice(["N","S","O","E"])
-    #         fila = pieza_original[0]
-    #         columna = pieza_original[1]
-    #         comprovacion = True
-    #         for i in range(eslora - 1):
-    #             match orientacion:
-    #                 case "N":
-    #                     fila -= 1
-    #                 case "S":
-    #                     fila += 1
-    #                 case "O":
-    #                     columna -= 1
-    #                 case "E":
-    #                     columna += 1
-    #             pieza_nueva = (fila, columna)
-    #             comprovacion = comprovacion if self.compararLimiteTablero(pieza_nueva) else False
-    #             if comprovacion:
-    #                 comprovacion = comprovacion if self.compararSolapamientoBarcos(pieza_nueva) else False
-    #             barco.append(pieza_nueva)
-
-    #         tablero_temp = None
-    #         if comprovacion:
-    #             tablero_temp = self.insertar_barcos_en_tablero_plus(barco)
-    #         else: 
-    #             print("No se puede colocar el barco aquí.")
-
-    #         if type(tablero_temp) == np.ndarray:
-    #             barco_colocado = True
-    #             self.tablero = tablero_temp
-    #             break
-
-    #         contador += 1
-
-
-
     def insertar_barcos_en_tablero_plus(self, barcos, simbolo_barco = "O"):
         tablero_temp = self.tablero.copy()
         num_max_filas = ALTURA_TABLERO
@@ -164,101 +118,3 @@ class Tablero:
 
     def imprimirTablero(self):
         print(self.tablero)
-
-# import numpy as np
-# import random
-# from variables import *
-# from barco import Barco
-
-# class Tablero:
-
-#     def __init__(self):
-#         self.tablero = np.full((BASE_TABLERO, ALTURA_TABLERO), "~")
-#         self.barcos = []        # lista de Barco
-#         self.disparos = set()   # casillas ya disparadas
-
-#     def ponerBarco(self, eslora=4, num_intentos=100):
-#         num_max_filas = ALTURA_TABLERO - 1
-#         num_max_columnas = BASE_TABLERO - 1
-#         contador = 0
-#         barco_colocado = False
-
-#         while contador < num_intentos and not barco_colocado:
-#             barco_coords = []
-#             pieza_original = (random.randint(0, num_max_filas), 
-#                               random.randint(0, num_max_columnas))
-#             barco_coords.append(pieza_original)
-
-#             orientacion = random.choice(["N","S","O","E"])
-#             fila, columna = pieza_original
-
-#             for i in range(eslora - 1):
-#                 match orientacion:
-#                     case "N": fila -= 1
-#                     case "S": fila += 1
-#                     case "O": columna -= 1
-#                     case "E": columna += 1
-#                 barco_coords.append((fila, columna))
-            
-#             tablero_temp = self.insertar_barcos_en_tablero_plus(barco_coords)
-
-#             # Si se han podido insertar, lo añadimos a barcos
-#             if type(tablero_temp) == np.ndarray:
-#                 barco_colocado = True
-#                 self.tablero = tablero_temp
-#                 self.barcos.append(Barco(barco_coords))  # ← añadimos barco real
-#                 break
-
-#             contador += 1
-
-#     def insertar_barcos_en_tablero_plus(self, barcos, simbolo_barco="O"):
-#         tablero_temp = self.tablero.copy()
-
-#         for fila, columna in barcos:
-#             if fila < 0 or fila >= ALTURA_TABLERO or columna < 0 or columna >= BASE_TABLERO:
-#                 return None
-
-#             if tablero_temp[fila, columna] == simbolo_barco:
-#                 return None
-
-#             for df in [-1, 0, 1]:
-#                 for dc in [-1, 0, 1]:
-#                     nf, nc = fila + df, columna + dc
-#                     if 0 <= nf < ALTURA_TABLERO and 0 <= nc < BASE_TABLERO:
-#                         if tablero_temp[nf, nc] == simbolo_barco:
-#                             return None
-
-#             tablero_temp[fila, columna] = simbolo_barco
-
-#         return tablero_temp
-
-#     # ─────────────────────────────────────
-#     # 🚀 NUEVO: lógica de disparos
-#     # ─────────────────────────────────────
-#     def recibir_disparo(self, fila, col):
-
-#         # repetido
-#         if (fila, col) in self.disparos:
-#             return "YaDisparado"
-
-#         self.disparos.add((fila, col))
-
-#         # comprobar barcos
-#         for barco in self.barcos:
-#             resultado = barco.recibir_disparo(fila, col)
-
-#             if resultado == "Tocado":
-#                 return "Tocado"
-
-#             if resultado == "Hundido":
-#                 return "Hundido"
-
-#         return "Agua"
-
-#     # vidas totales restantes
-#     @property
-#     def vidas_restantes(self):
-#         return sum(barco.vidas() for barco in self.barcos)
-
-#     def imprimirTablero(self):
-#         print(self.tablero)
