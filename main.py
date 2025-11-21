@@ -47,6 +47,7 @@ if __name__ == "__main__":
             
             # Obtiene las coordenadas del disparo del usuario.
             coordenadas_disparo = jugador.obtener_disparo_humano()
+            #coordenadas_disparo = None #en caso de querer automatizar la partida, descomentar esta linea y comentar la anterior
             
             # Llama al método disparar: el jugador dispara a la IA, y el resultado determina si 'pasar_turno' es True o False.
             pasar_turno = jugador.disparar(ia, coordenadas_disparo)

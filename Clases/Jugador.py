@@ -47,7 +47,7 @@ class Jugador:
         
         return False
     
-def obtener_disparo_humano(self):
+    def obtener_disparo_humano(self):
         # Inicia un bucle infinito para seguir pidiendo coordenadas hasta que sean válidas.
         while True:
             try:
